@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -27,6 +29,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.13",
     "bootstrap": "^5.2.3",
+    "gh-pages": "^5.0.0",
     "postcss": "^8.4.21",
     "sass": "^1.58.3",
     "tailwindcss": "^3.2.7",

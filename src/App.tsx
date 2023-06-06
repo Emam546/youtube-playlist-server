@@ -4,7 +4,7 @@ import Main from "./pages/main";
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/youtubeDownlouderFrontEnd/b">
             <Routes>
                 <Route
                     path="/"
