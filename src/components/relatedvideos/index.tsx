@@ -14,7 +14,6 @@ export default function RelatedVideos() {
         (state) => state.relatedVideos as any
     );
     const { search } = useParams();
-    console.log(data);
     const paramQuery = useQuery({
         queryKey: ["search", search],
         queryFn: async () => {

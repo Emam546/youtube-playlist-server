@@ -20,7 +20,7 @@ function formatBytes(bytes: number, decimals = 2) {
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
-function MapDataVideo(video: videoFormat, i: number) {
+function MapDataVideo(video: videoFormat, i: number, title: string) {
     if (!video.hasVideo) return null;
     if (!parseInt(video.contentLength)) return null;
     return (
@@ -35,23 +35,21 @@ function MapDataVideo(video: videoFormat, i: number) {
             <td className="button-column">
                 <a
                     href={video.url}
-                    download="you downloaded Me"
-                    target="_blank"
+                    download={`YoutubeDownloader - ${title}_${video.qualityLabel}`}
                 >
-                    <button
-                        type="button"
-                        className="btn btn-success"
-                    >
+                    <div className="btn btn-success">
                         <i className="fa-solid fa-download"></i>
                         <span>Download</span>
-                    </button>
+                    </div>
                 </a>
             </td>
         </tr>
     );
 }
-function MapDataAudio(video: videoFormat, i: number) {
+function MapDataAudio(video: videoFormat, i: number, title: string) {
     if (!video.hasAudio) return null;
+    if (video.hasVideo) return null;
+
     if (!parseInt(video.contentLength)) return null;
     return (
         <tr key={i}>
@@ -62,16 +60,13 @@ function MapDataAudio(video: videoFormat, i: number) {
             <td className="button-column">
                 <a
                     href={video.url}
-                    download="you downloaded Me"
-                    target="_blank"
+                    download={`YoutubeDownloader - ${title}`}
                 >
-                    <button
-                        type="button"
-                        className="btn btn-success"
-                    >
+                    <div className="btn btn-success">
+                        {/* y2mate.com - METAMORPHOSIS Slowed  Reverb_360p.mp4 */}
                         <i className="fa-solid fa-download"></i>
                         <span>Download</span>
-                    </button>
+                    </div>
                 </a>
             </td>
         </tr>
@@ -162,7 +157,15 @@ export default function YoutubeResult() {
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>{formats.map(MapDataVideo)}</tbody>
+                                    <tbody>
+                                        {formats.map((v, i) =>
+                                            MapDataVideo(
+                                                v,
+                                                i,
+                                                data.videoDetails.title
+                                            )
+                                        )}
+                                    </tbody>
                                 </table>
                             </div>
                             <div
@@ -178,7 +181,15 @@ export default function YoutubeResult() {
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>{formats.map(MapDataAudio)}</tbody>
+                                    <tbody>
+                                        {formats.map((v, i) =>
+                                            MapDataAudio(
+                                                v,
+                                                i,
+                                                data.videoDetails.title
+                                            )
+                                        )}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
